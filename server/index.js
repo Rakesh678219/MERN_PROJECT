@@ -9,7 +9,11 @@ import morgan from "morgan";
 import path from "path"; //to set paths when configuring directories
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
+import usersRoutes from "./routes/users.js";
+import postsRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
+import { verifyToken } from "./middleware/auth.js";
+import { createPost } from "./controllers/posts.js";
 /*Configurations for middlewares aswell as other package configurations */
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,10 +52,12 @@ const upload = multer({ storage: storage }); //using this to upload any files
 
 /*Routes with files */
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /*Routes */
 app.use("/auth", authRoutes);
-
+app.use("/users", usersRoutes);
+app.use("/posts", postsRoutes);
 /*MONGOOSE SETUP */
 const port = process.env.PORT || 6001;
 
