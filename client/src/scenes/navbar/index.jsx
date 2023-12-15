@@ -39,9 +39,7 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `${user?.firstName ?? "fake person"} ${
-    user?.lastName ?? ""
-  }`;
+  const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -58,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          FZone
+          Sociopedia
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
